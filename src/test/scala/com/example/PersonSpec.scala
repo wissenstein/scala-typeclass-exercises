@@ -1,6 +1,38 @@
 package com.example
 
-class PersonSpec extends MySpec {
-  // TODO #17: Write tests for additional Eq instances defined in Person using
+import com.example.Person.Instances.{idEq, nameEq}
+import com.example.laws.discipline.EqTests
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.prop.TableDrivenPropertyChecks.forAll
+import org.scalatest.prop.Tables.Table
+
+class PersonSpec extends MySpec, Matchers {
+  test("nameEq compares persons by name") {
+    val persons = Table(
+      ("person1", "person2", "result"),
+      (Person("Hänsel", 327), Person("Hänsel", 273), true),
+      (Person("Gretel", 327), Person("Hänsel", 273), false),
+      (Person("Gretel", 327), Person("Hänsel", 327), false),
+    )
+    forAll(persons) { (person1, person2, result) =>
+      nameEq.eq(person1, person2) shouldBe result
+    }
+  }
+
+  test("idEq compares persons by id") {
+    val persons = Table(
+      ("person1", "person2", "result"),
+      (Person("Hänsel", 327), Person("Hänsel", 273), false),
+      (Person("Gretel", 327), Person("Hänsel", 273), false),
+      (Person("Gretel", 327), Person("Hänsel", 327), true),
+    )
+    forAll(persons) { (person1, person2, result) =>
+      idEq.eq(person1, person2) shouldBe result
+    }
+  }
+
+  // #17: Write tests for additional Eq instances defined in Person using
   //           Discipline and the 'checkAll' method
+  checkAll("nameEq", EqTests[Person](using nameEq).eq)
+  checkAll("idEq", EqTests[Person](using idEq).eq)
 }
