@@ -1,11 +1,10 @@
 package com.example
 
-trait Eq[A] {
+trait Eq[A]:
   // #1: Define an 'eq' method that takes two A values as parameters, and returns a Boolean
   def eq(a: A, b: A): Boolean
-}
 
-object Eq {
+object Eq:
   // #2: Define the method 'apply' so we can summon instances from implicit scope
   def apply[A](using ev: Eq[A]): Eq[A] = ev
 
@@ -31,11 +30,8 @@ object Eq {
       case None => false
       case Some(w) => Eq[A].eq(v, w)
 
-  object Syntax {
+  object Syntax:
     // #8: Define a class 'EqOps' with a method 'eqTo' that enables the following syntax:
     //          "hello".eqTo("world")
-    implicit class EqOps[A](a: A) {
+    implicit class EqOps[A](a: A):
       infix def eqTo(b: A)(using eq: Eq[A]): Boolean = eq.eq(a, b)
-    }
-  }
-}

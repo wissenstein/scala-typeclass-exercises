@@ -6,7 +6,7 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Prop.forAll
 import org.typelevel.discipline.Laws
 
-trait EqTests[A] extends Laws {
+trait EqTests[A] extends Laws:
   def laws: EqLaws[A]
 
   // #14: Define a RuleSet containing the laws in EqLaws
@@ -17,14 +17,10 @@ trait EqTests[A] extends Laws {
     "symmetry" -> forAll(laws.symmetry),
     "transitivity" -> forAll(laws.transitivity)
   )
-}
 
 // #15: Define a companion object with an 'apply' method so that we can
 //           easily instantiate tests with e.g. EqTests[Int]
-object EqTests {
-  def apply[A](using e: Eq[A]): EqTests[A] = new EqTests[A] {
-    override def laws: EqLaws[A] = new EqLaws[A] {
+object EqTests:
+  def apply[A](using e: Eq[A]): EqTests[A] = new EqTests[A]:
+    override def laws: EqLaws[A] = new EqLaws[A]:
       override def eq: Eq[A] = e
-    }
-  }
-}
