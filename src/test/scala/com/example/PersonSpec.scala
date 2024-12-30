@@ -33,6 +33,6 @@ class PersonSpec extends MySpec, Matchers {
 
   // #17: Write tests for additional Eq instances defined in Person using
   //           Discipline and the 'checkAll' method
-  checkAll("nameEq", EqTests[Person](using nameEq).eq)
-  checkAll("idEq", EqTests[Person](using idEq).eq)
+  checkAll("nameEq", EqTests(using nameEq).eq)
+  checkAll("idEq", EqTests(using idEq).eq)
 }

@@ -28,7 +28,7 @@ object Eq:
     case None => b.isEmpty
     case Some(v) => b match
       case None => false
-      case Some(w) => Eq[A].eq(v, w)
+      case Some(w) => eq.eq(v, w)
 
   object Syntax:
     // #8: Define a class 'EqOps' with a method 'eqTo' that enables the following syntax:
