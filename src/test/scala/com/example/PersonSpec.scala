@@ -6,8 +6,8 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.TableDrivenPropertyChecks.forAll
 import org.scalatest.prop.Tables.Table
 
-class PersonSpec extends MySpec, Matchers {
-  test("nameEq compares persons by name") {
+class PersonSpec extends MySpec, Matchers:
+  "nameEq compares persons by name" in {
     val persons = Table(
       ("person1", "person2", "result"),
       (Person("Hänsel", 327), Person("Hänsel", 273), true),
@@ -19,7 +19,7 @@ class PersonSpec extends MySpec, Matchers {
     }
   }
 
-  test("idEq compares persons by id") {
+  "idEq compares persons by id" in {
     val persons = Table(
       ("person1", "person2", "result"),
       (Person("Hänsel", 327), Person("Hänsel", 273), false),
@@ -33,6 +33,7 @@ class PersonSpec extends MySpec, Matchers {
 
   // #17: Write tests for additional Eq instances defined in Person using
   //           Discipline and the 'checkAll' method
-  checkAll("nameEq", EqTests(using nameEq).eq)
-  checkAll("idEq", EqTests(using idEq).eq)
-}
+  "Laws are fulfilled for" - {
+    checkAll("nameEq", EqTests(using nameEq).eq)
+    checkAll("idEq", EqTests(using idEq).eq)
+  }
