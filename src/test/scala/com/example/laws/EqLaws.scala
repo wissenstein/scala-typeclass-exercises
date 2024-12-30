@@ -10,7 +10,7 @@ trait EqLaws[A]:
 
   // #12: Define a 'symmetry' property which checks that when 'x' is equal to 'y' then 'y' is equal to 'x',
   //           and viceversa
-  def symmetry(x: A, y: A): Boolean = if eq.eq(x, y) then eq.eq(y, x) else !eq.eq(y, x)
+  def symmetry(x: A, y: A): Boolean = eq.eq(x, y) == eq.eq(y, x)
 
   // #13: Define a 'transitivity' property which checks that if 'x' is equal to 'y' and 'y' is equal to 'z'
   //           then 'x' is equal to 'z'

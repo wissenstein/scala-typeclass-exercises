@@ -21,6 +21,6 @@ trait EqTests[A] extends Laws:
 // #15: Define a companion object with an 'apply' method so that we can
 //           easily instantiate tests with e.g. EqTests[Int]
 object EqTests:
-  def apply[A](using e: Eq[A]): EqTests[A] = new EqTests[A]:
+  def apply[A](using eqA: Eq[A]): EqTests[A] = new EqTests[A]:
     override def laws: EqLaws[A] = new EqLaws[A]:
-      override def eq: Eq[A] = e
+      override def eq: Eq[A] = eqA
