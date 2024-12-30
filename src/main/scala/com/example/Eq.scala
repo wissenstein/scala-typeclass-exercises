@@ -13,7 +13,7 @@ object Eq:
   def instance[A](f: (A, A) => Boolean): Eq[A] = (a, b) => f(a, b)
 
   // #4: Define an Eq instance for String
-  given stringEq: Eq[String] = (a: String, b: String) => a.contentEquals(b)
+  given stringEq: Eq[String] = (a, b) => a == b
 
   // #5: Define an Eq instance for Int
   given intEq: Eq[Int] = (a, b) => a == b
